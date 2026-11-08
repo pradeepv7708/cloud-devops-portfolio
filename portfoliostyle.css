@@ -1428,3 +1428,182 @@ footer p {
 @media (prefers-reduced-motion: reduce) {
     .js-reveal .reveal { opacity: 1; translate: none; scale: none; transition: none; }
 }
+
+
+/* ==================================================
+   HOME SECTION ONLY – interactive dot grid background
+   (canvas is created inside #home by dot-grid.js)
+================================================== */
+
+#home-dots {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;                 /* above the section background, below the content */
+    pointer-events: none;       /* buttons and links stay clickable */
+    display: block;
+
+    /* fade the grid at the top and bottom so it blends into neighbouring sections */
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 14%, #000 86%, transparent 100%);
+            mask-image: linear-gradient(to bottom, transparent 0%, #000 14%, #000 86%, transparent 100%);
+}
+
+#home .home-container {
+    position: relative;
+    z-index: 1;                 /* keeps text, button and photo above the dots */
+}
+
+
+
+/* ==================================================
+   NAVBAR – BOUNCE DOWN ENTRANCE
+   Paste at the very END of your CSS file
+   (or link this file AFTER your main stylesheet)
+================================================== */
+
+/* the whole bar drops from the top and bounces into place */
+nav {
+    animation: navDrop 0.9s cubic-bezier(0.28, 0.84, 0.42, 1) backwards;
+}
+
+@keyframes navDrop {
+    0%   { transform: translateY(-110%); opacity: 0; }
+    50%  { transform: translateY(10%);   opacity: 1; }
+    68%  { transform: translateY(-5%); }
+    82%  { transform: translateY(3%); }
+    92%  { transform: translateY(-1%); }
+    100% { transform: translateY(0); }
+}
+
+/* logo + each menu item drops down and bounces, one after another */
+nav .logo,
+nav ul li {
+    animation: linkDrop 0.8s cubic-bezier(0.28, 0.84, 0.42, 1) backwards;
+}
+
+nav .logo { animation-delay: 0.30s; }
+
+nav ul li:nth-child(1) { animation-delay: 0.40s; }
+nav ul li:nth-child(2) { animation-delay: 0.48s; }
+nav ul li:nth-child(3) { animation-delay: 0.56s; }
+nav ul li:nth-child(4) { animation-delay: 0.64s; }
+nav ul li:nth-child(5) { animation-delay: 0.72s; }
+nav ul li:nth-child(6) { animation-delay: 0.80s; }
+
+@keyframes linkDrop {
+    0%   { transform: translateY(-34px); opacity: 0; }
+    55%  { transform: translateY(8px);   opacity: 1; }
+    75%  { transform: translateY(-4px); }
+    90%  { transform: translateY(2px); }
+    100% { transform: translateY(0); }
+}
+
+/* respect users who turn animations off */
+@media (prefers-reduced-motion: reduce) {
+    nav,
+    nav .logo,
+    nav ul li {
+        animation: none;
+    }
+}
+
+
+/* ==================================================
+   NAVBAR – BOUNCE DOWN ENTRANCE
+   Paste at the very END of your CSS file
+   (or link this file AFTER your main stylesheet)
+================================================== */
+
+/* the whole bar drops from the top and bounces into place */
+nav {
+    animation: navDrop 0.9s cubic-bezier(0.28, 0.84, 0.42, 1) backwards;
+}
+
+@keyframes navDrop {
+    0%   { transform: translateY(-110%); opacity: 0; }
+    50%  { transform: translateY(10%);   opacity: 1; }
+    68%  { transform: translateY(-5%); }
+    82%  { transform: translateY(3%); }
+    92%  { transform: translateY(-1%); }
+    100% { transform: translateY(0); }
+}
+
+/* logo + each menu item drops down and bounces, one after another */
+nav .logo,
+nav ul li {
+    animation: linkDrop 0.8s cubic-bezier(0.28, 0.84, 0.42, 1) backwards;
+}
+
+nav .logo { animation-delay: 0.30s; }
+
+nav ul li:nth-child(1) { animation-delay: 0.40s; }
+nav ul li:nth-child(2) { animation-delay: 0.48s; }
+nav ul li:nth-child(3) { animation-delay: 0.56s; }
+nav ul li:nth-child(4) { animation-delay: 0.64s; }
+nav ul li:nth-child(5) { animation-delay: 0.72s; }
+nav ul li:nth-child(6) { animation-delay: 0.80s; }
+
+@keyframes linkDrop {
+    0%   { transform: translateY(-34px); opacity: 0; }
+    55%  { transform: translateY(8px);   opacity: 1; }
+    75%  { transform: translateY(-4px); }
+    90%  { transform: translateY(2px); }
+    100% { transform: translateY(0); }
+}
+
+/* ==================================================
+   NAVBAR – HOVER: BOUNCE DOWN + HIGHLIGHT
+================================================== */
+
+nav ul li a {
+    position: relative;
+    display: inline-block;      /* lets the link move up and down */
+    isolation: isolate;         /* keeps the highlight behind the text */
+}
+
+/* glowing highlight pill (no change to your layout or spacing) */
+nav ul li a::before {
+    content: "";
+    position: absolute;
+    inset: -7px -13px;
+    z-index: -1;
+    border-radius: 20px;
+    background: rgba(0, 157, 255, 0.14);
+    border: 1px solid rgba(0, 157, 255, 0.45);
+    box-shadow: 0 0 18px rgba(0, 157, 255, 0.35);
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.25s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+nav ul li a:hover {
+    color: #33b5ff;
+    text-shadow: 0 0 12px rgba(0, 157, 255, 0.75);
+    animation: navHoverBounce 0.55s cubic-bezier(0.28, 0.84, 0.42, 1);
+}
+
+nav ul li a:hover::before {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* drops down, springs back, settles */
+@keyframes navHoverBounce {
+    0%   { transform: translateY(0); }
+    30%  { transform: translateY(8px); }
+    50%  { transform: translateY(-3px); }
+    70%  { transform: translateY(3px); }
+    85%  { transform: translateY(-1px); }
+    100% { transform: translateY(0); }
+}
+
+/* respect users who turn animations off */
+@media (prefers-reduced-motion: reduce) {
+    nav,
+    nav .logo,
+    nav ul li,
+    nav ul li a:hover {
+        animation: none;
+    }
+}
